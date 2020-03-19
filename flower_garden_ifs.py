@@ -4,13 +4,13 @@ import numpy as np
 import random
 
 
-def F1(x, y): return [1/2*x, 1/2*y]
+def F1(x, y): return [1/3*x+1/3, 1/3*y+2/3]
 
 
-def F2(x, y): return [1/2*x+1/4, 1/2*y+1/2]
+def F2(x, y): return [-1/3*y+1/3, x]
 
 
-def F3(x, y): return [1/2*x+1/2, 1/2*y]
+def F3(x, y): return [1/3*y+2/3, -x+1]
 
 
 def random_iteration(num_points):
@@ -23,17 +23,17 @@ def random_iteration(num_points):
     for _ in range(num_points+1):
         var = random.randint(1, 12)
 
-        if var <= 4:
+        if var <= 2:
             xk, yk = F1(xk, yk)
             x = np.append(x, xk)
             y = np.append(y, yk)
 
-        if var > 4 and var <= 8:
+        if var > 2 and var <= 7:
             xk, yk = F2(xk, yk)
             x = np.append(x, xk)
             y = np.append(y, yk)
 
-        if var > 8:
+        if var > 7:
             xk, yk = F3(xk, yk)
             x = np.append(x, xk)
             y = np.append(y, yk)
@@ -66,11 +66,13 @@ def regular_iteration(num_iters):
 
     xy = np.array([[0, 0]])
     xy = np.append(xy, [[1, 0]], axis=0)
-    xy = np.append(xy, [[0.5, 1]], axis=0)
+    xy = np.append(xy, [[1, 1]], axis=0)
+    xy = np.append(xy, [[0, 1]], axis=0)
+
     recursive_iteration(xy, num_iters, plt.gca())
 
 
 if __name__ == "__main__":
-    regular_iteration(7)
-    # random_iteration(100000)
+    regular_iteration(8)
+    # random_iteration(20000)
     plt.show()
