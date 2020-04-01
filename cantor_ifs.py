@@ -29,7 +29,7 @@ def random_iteration(num_points):
             y = np.append(y, yk)
 
     plt.figure(0)
-    plt.scatter(x, y)
+    plt.scatter(x, y, s=0.5)
 
 
 def recursive_iteration(rec_set, i, ax):
@@ -56,7 +56,7 @@ def regular_iteration(num_iters):
 
 
 if __name__ == "__main__":
-    # random_iteration(100000)
-    regular_iteration(10)
-
+    random_iteration(1000)
+    # regular_iteration(5)
+    plt.gca().axes.get_yaxis().set_visible(False)
     plt.show()

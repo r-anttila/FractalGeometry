@@ -85,6 +85,6 @@ def regular_iteration(num_iters):
 
 
 if __name__ == "__main__":
-    regular_iteration(6)
+    # regular_iteration(6)
     random_iteration(10000)
     plt.show()

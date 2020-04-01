@@ -31,7 +31,7 @@ def random_iteration(num_points):
             y = np.append(y, yk)
 
     plt.figure(0)
-    plt.scatter(x, y, s=0.01, marker=MarkerStyle(marker='*'))
+    plt.scatter(x, y, s=0.01, c='r', marker=MarkerStyle(marker='*'))
 
     plt.axis('equal')
 
@@ -60,6 +60,7 @@ def regular_iteration(num_iters):
 
 
 if __name__ == "__main__":
-    regular_iteration(12)
-    # random_iteration(100000)
+    # regular_iteration(13)
+    random_iteration(100000)
+    plt.gca().axis('equal')
     plt.show()

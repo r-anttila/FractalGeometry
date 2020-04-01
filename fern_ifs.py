@@ -49,8 +49,41 @@ def random_iteration(num_iters):
     plt.scatter(x, y, s=0.01, c='green', marker=MarkerStyle(marker='*'))
 
     plt.axis('equal', xmin=-0.1, xmax=1.1, ymin=-0.2, ymax=1.2)
-    plt.show()
+
+
+def recursive_iteration(rec_set, i, ax):
+    f1xy = np.empty([0, 2])
+    f2xy = np.empty([0, 2])
+    f3xy = np.empty([0, 2])
+    f4xy = np.empty([0, 2])
+
+    if i == 0:
+        ax.add_patch(plt.Polygon(rec_set))
+    else:
+        i -= 1
+        for x, y in np.nditer([rec_set[:, 0], rec_set[:, 1]]):
+            f1xy = np.append(f1xy, [F1(x, y)], axis=0)
+            f2xy = np.append(f2xy, [F2(x, y)], axis=0)
+            f3xy = np.append(f3xy, [F3(x, y)], axis=0)
+            f4xy = np.append(f4xy, [F4(x, y)], axis=0)
+
+        recursive_iteration(f1xy, i, ax)
+        recursive_iteration(f2xy, i, ax)
+        recursive_iteration(f3xy, i, ax)
+        recursive_iteration(f4xy, i, ax)
+
+
+def regular_iteration(num_iters):
+    plt.figure(1)
+
+    xy = np.array([[1, 0]])
+    xy = np.append(xy, [[1, 1]], axis=0)
+    xy = np.append(xy, [[0.5, 1]], axis=0)
+    recursive_iteration(xy, num_iters, plt.gca())
 
 
 if __name__ == "__main__":
+    # regular_iteration(8)
     random_iteration(100000)
+    plt.axis('equal')
+    plt.show()

@@ -39,7 +39,7 @@ def random_iteration(num_points):
             y = np.append(y, yk)
 
     plt.figure(0)
-    plt.scatter(x, y, s=0.01, marker=MarkerStyle(marker='*'))
+    plt.scatter(x, y, s=0.005, marker=MarkerStyle(marker='*'))
 
 
 def recursive_iteration(rec_set, i, ax):
@@ -61,6 +61,21 @@ def recursive_iteration(rec_set, i, ax):
         recursive_iteration(f3xy, i, ax)
 
 
+'''
+def recursive_iteration(rec_set, i, ax):
+    if i == 0:
+        ax.add_patch(plt.Polygon(rec_set))
+    else:
+        i -= 1
+        for func in [F1, F2, F3]:
+            fxy = np.empty([0, 2])
+            for x, y in np.nditer([rec_set[:, 0], rec_set[:, 1]]):
+                fxy = np.append(fxy, [func(x, y)], axis=0)
+
+            recursive_iteration(fxy, i, ax)
+'''
+
+
 def regular_iteration(num_iters):
     plt.figure(1)
 
@@ -70,7 +85,19 @@ def regular_iteration(num_iters):
     recursive_iteration(xy, num_iters, plt.gca())
 
 
+def square_regular_iteration(num_iters):
+    plt.figure(1)
+
+    xy = np.array([[0, 0]])
+    xy = np.append(xy, [[0, 1]], axis=0)
+    xy = np.append(xy, [[1, 1]], axis=0)
+    xy = np.append(xy, [[1, 0]], axis=0)
+    recursive_iteration(xy, num_iters, plt.gca())
+
+
 if __name__ == "__main__":
-    regular_iteration(7)
-    # random_iteration(100000)
+    # regular_iteration(7)
+    random_iteration(100000)
+    # square_regular_iteration(1)
+    plt.gca().axis('equal')
     plt.show()

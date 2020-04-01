@@ -4,13 +4,13 @@ import numpy as np
 import random
 
 
-def F1(x, y): return [1/3*x+1/3, 1/3*y+2/3]
+def F1(x, y): return [1/3*x, 1/3*y]
 
 
-def F2(x, y): return [-1/3*y+1/3, x]
+def F2(x, y): return [1/4*x - 3/4*y + 3/4, 1/4*x + 3/4*y]
 
 
-def F3(x, y): return [1/3*y+2/3, -x+1]
+def F3(x, y): return [1/3*x + 2/3, 1/3*y + 2/3]
 
 
 def random_iteration(num_points):
@@ -23,17 +23,17 @@ def random_iteration(num_points):
     for _ in range(num_points+1):
         var = random.randint(1, 12)
 
-        if var <= 2:
+        if var <= 4:
             xk, yk = F1(xk, yk)
             x = np.append(x, xk)
             y = np.append(y, yk)
 
-        if var > 2 and var <= 7:
+        if var > 4 and var <= 8:
             xk, yk = F2(xk, yk)
             x = np.append(x, xk)
             y = np.append(y, yk)
 
-        if var > 7:
+        if var > 8:
             xk, yk = F3(xk, yk)
             x = np.append(x, xk)
             y = np.append(y, yk)
@@ -65,14 +65,14 @@ def regular_iteration(num_iters):
     plt.figure(1)
 
     xy = np.array([[0, 0]])
-    xy = np.append(xy, [[1, 0]], axis=0)
-    xy = np.append(xy, [[1, 1]], axis=0)
     xy = np.append(xy, [[0, 1]], axis=0)
-
+    xy = np.append(xy, [[1, 1]], axis=0)
+    xy = np.append(xy, [[1, 0]], axis=0)
     recursive_iteration(xy, num_iters, plt.gca())
 
 
 if __name__ == "__main__":
-    # regular_iteration(4)
-    random_iteration(100000)
+    regular_iteration(10)
+    # random_iteration(100000)
+    plt.axis('equal')
     plt.show()
